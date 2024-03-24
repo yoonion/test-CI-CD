@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    @Value("${app.version:1.0.0}")
+    @Value("${app.version}")
     String version;
 
     @GetMapping("/")
