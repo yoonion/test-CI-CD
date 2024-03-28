@@ -1,22 +1,27 @@
 version: 0.0
 os: linux
 
+# 배포될 파일들에 대한 정보를 지정
 files:
-  - source:  /
-    destination: /home/ubuntu/app
-    overwrite: yes
+  - source: / # 배포할 파일들의 소스 경로 지정
+    destination: /home/ubuntu/app # 파일들이 배포될 대상 디렉토리 지정
+    overwrite: yes # 대상 디렉토리 이미 존재 할 경우 덮어쓰기 할건지
 
+# 파일 및 디렉토리의 퍼미션에 대한 정보를 지정
 permissions:
   - object: /
-    pattern: "**"
-    owner: ubuntu
-    group: ubuntu
+    pattern: "**" # 퍼미션을 적용할 파일 및 디렉토리 패턴을 지정
+    owner: ubuntu # 파일 및 디렉토리의 소유자를 지정
+    group: ubuntu # 파일 및 디렉토리의 그룹을 지정
 
+# 배포 중 실행될 후킹 스크립트에 대한 정보를 지정
 hooks:
+  # 배포가 완료된 후에 실행될 스크립트에 대한 정보를 지정
   AfterInstall:
-    - location: scripts/stop.sh
-      timeout: 60
-      runas: ubuntu
+    - location: scripts/stop.sh # 스크립트 파일의 경로를 지정
+      timeout: 60 # 스크립트가 실행될 최대 시간을 지정
+      runas: ubuntu # 스크립트를 실행할 사용자를 지정
+  # 애플리케이션을 시작할 때 실행될 스크립트에 대한 정보를 지정
   ApplicationStart:
     - location: scripts/start.sh
       timeout: 60
